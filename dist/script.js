@@ -101,6 +101,7 @@ roomViewer?.querySelector('.viewer-close')?.addEventListener('click', closeViewe
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeViewer(); });
 
 if (heroVideoWrap && heroVideo) {
+  let suppressNextClick = false;
   heroVideoWrap.addEventListener('pointerdown', (event) => {
     if (event.target.closest('button')) return;
     const startX = event.clientX;
@@ -122,11 +123,16 @@ if (heroVideoWrap && heroVideo) {
       heroVideoWrap.removeEventListener('pointermove', move);
       heroVideoWrap.removeEventListener('pointerup', stop);
       heroVideoWrap.removeEventListener('pointercancel', stop);
-      if (moved) heroVideo.play().catch(() => {}); else openViewer();
+      suppressNextClick = moved;
+      if (moved) heroVideo.play().catch(() => {});
     };
     heroVideoWrap.addEventListener('pointermove', move);
     heroVideoWrap.addEventListener('pointerup', stop);
     heroVideoWrap.addEventListener('pointercancel', stop);
+  });
+  heroVideoWrap.addEventListener('click', () => {
+    if (suppressNextClick) { suppressNextClick = false; return; }
+    openViewer();
   });
   heroVideoWrap.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openViewer(); }
