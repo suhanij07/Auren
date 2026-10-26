@@ -124,3 +124,29 @@ document.querySelector('#enquiry-form')?.addEventListener('submit', (event) => {
   const body = [`Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Project type: ${data.get('type')}`, `Location: ${data.get('location') || 'Not specified'}`, '', 'Project notes:', data.get('message')].join('\n');
   window.location.href = `mailto:hello@aurenatelier.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
+
+document.querySelectorAll('.feature-slideshow').forEach((slideshow) => {
+  const slides = [...slideshow.querySelectorAll('.feature-slide')];
+  const counter = slideshow.querySelector('.slideshow-controls b');
+  let active = 0;
+  let timer;
+  const show = (index) => {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      const selected = slideIndex === active;
+      slide.classList.toggle('active', selected);
+      slide.setAttribute('aria-hidden', String(!selected));
+    });
+    counter.textContent = String(active + 1).padStart(2, '0');
+  };
+  const start = () => {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) timer = window.setInterval(() => show(active + 1), 4500);
+  };
+  const restart = () => { window.clearInterval(timer); start(); };
+  slideshow.querySelector('.slide-prev').addEventListener('click', () => { show(active - 1); restart(); });
+  slideshow.querySelector('.slide-next').addEventListener('click', () => { show(active + 1); restart(); });
+  slideshow.addEventListener('mouseenter', () => window.clearInterval(timer));
+  slideshow.addEventListener('mouseleave', start);
+  show(0);
+  start();
+});

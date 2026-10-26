@@ -23,11 +23,12 @@
 
   <main id="top">
     <section class="hero" style="--hero-split:52%">
-      <div class="hero-visual reveal pan-surface" data-pan>
-        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2200&q=92" alt="Sculptural contemporary living room in warm neutral tones" draggable="false" />
+      <div class="hero-visual reveal video-hero">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=90" aria-label="Cinematic view through a contemporary living room">
+          <source src="https://videos.pexels.com/video-files/34955049/14806900_3840_2160_50fps.mp4" type="video/mp4" />
+        </video>
         <div class="image-label"><span>Residence 01</span><span>Bengaluru · 2026</span></div>
-        <button class="orbit-link viewer-launch" type="button" aria-label="Open immersive room view"><span>Explore<br>360° view</span></button>
-        <span class="pan-hint">Click + drag to look around</span>
+        <span class="video-label"><i></i> Interior film · 00:10</span>
       </div>
       <button class="hero-splitter" type="button" aria-label="Resize hero image and text panels"><span>↔</span></button>
       <div class="hero-copy reveal">
@@ -81,7 +82,12 @@
     </section>
 
     <section class="feature-quote">
-      <div class="feature-image reveal"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=90" alt="Sculptural lounge chair and warm interior details" /></div>
+      <div class="feature-image feature-slideshow reveal" aria-roledescription="carousel" aria-label="Interior design inspiration slideshow">
+        <div class="feature-slide active"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=90" alt="Sculptural lounge chair and warm interior details" /></div>
+        <div class="feature-slide"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=90" alt="Contemporary lounge with art and collected furniture" /></div>
+        <div class="feature-slide"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=90" alt="Layered residential interior with warm natural materials" /></div>
+        <div class="slideshow-controls"><button class="slide-prev" type="button" aria-label="Previous image">←</button><span><b>01</b> / 03</span><button class="slide-next" type="button" aria-label="Next image">→</button></div>
+      </div>
       <div class="quote-copy reveal"><span>Our point of view</span><blockquote>“Luxury isn’t excess.<br>It is the feeling that<br><em>everything belongs.</em>”</blockquote><p>We edit with care—allowing proportion, craftsmanship and natural materials to carry the room.</p></div>
     </section>
 
