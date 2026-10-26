@@ -22,3 +22,10 @@ menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () =
   menuButton.setAttribute('aria-expanded', 'false');
   menuButton.querySelector('span').textContent = 'Menu';
 }));
+
+document.querySelectorAll('.compare').forEach((compare) => {
+  const range = compare.querySelector('.compare-range');
+  const update = () => compare.style.setProperty('--position', `${range.value}%`);
+  range.addEventListener('input', update);
+  update();
+});
