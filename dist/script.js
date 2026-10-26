@@ -79,30 +79,72 @@ if (heroPan) {
 
 const roomViewer = document.querySelector('#room-viewer');
 const viewerStage = roomViewer?.querySelector('.viewer-stage');
+const heroVideoWrap = document.querySelector('.interactive-video');
+const heroVideo = heroVideoWrap?.querySelector('video');
+const viewerVideo = viewerStage?.querySelector('video');
 const closeViewer = () => {
+  viewerVideo?.pause();
   roomViewer?.classList.remove('open');
   roomViewer?.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('viewer-open');
 };
-document.querySelectorAll('.viewer-launch').forEach((button) => button.addEventListener('click', () => {
+const openViewer = () => {
+  if (viewerVideo && heroVideo && Number.isFinite(heroVideo.currentTime)) viewerVideo.currentTime = heroVideo.currentTime;
   roomViewer.classList.add('open');
   roomViewer.setAttribute('aria-hidden', 'false');
   document.body.classList.add('viewer-open');
   viewerStage.focus();
-}));
+  viewerVideo?.play().catch(() => {});
+};
+document.querySelectorAll('.viewer-launch').forEach((button) => button.addEventListener('click', openViewer));
 roomViewer?.querySelector('.viewer-close')?.addEventListener('click', closeViewer);
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeViewer(); });
 
+if (heroVideoWrap && heroVideo) {
+  heroVideoWrap.addEventListener('pointerdown', (event) => {
+    if (event.target.closest('button')) return;
+    const startX = event.clientX;
+    const startTime = heroVideo.currentTime;
+    let moved = false;
+    heroVideo.pause();
+    heroVideoWrap.classList.add('is-scrubbing');
+    heroVideoWrap.setPointerCapture(event.pointerId);
+    const move = (moveEvent) => {
+      const delta = moveEvent.clientX - startX;
+      if (Math.abs(delta) > 5) moved = true;
+      if (Number.isFinite(heroVideo.duration) && heroVideo.duration > 0) {
+        const next = startTime + (delta / heroVideoWrap.clientWidth) * heroVideo.duration * 1.5;
+        heroVideo.currentTime = ((next % heroVideo.duration) + heroVideo.duration) % heroVideo.duration;
+      }
+    };
+    const stop = () => {
+      heroVideoWrap.classList.remove('is-scrubbing');
+      heroVideoWrap.removeEventListener('pointermove', move);
+      heroVideoWrap.removeEventListener('pointerup', stop);
+      heroVideoWrap.removeEventListener('pointercancel', stop);
+      if (moved) heroVideo.play().catch(() => {}); else openViewer();
+    };
+    heroVideoWrap.addEventListener('pointermove', move);
+    heroVideoWrap.addEventListener('pointerup', stop);
+    heroVideoWrap.addEventListener('pointercancel', stop);
+  });
+  heroVideoWrap.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openViewer(); }
+  });
+}
+
 if (viewerStage) {
-  let viewerX = 0;
   viewerStage.addEventListener('pointerdown', (event) => {
     const startX = event.clientX;
-    const startPan = viewerX;
+    const startTime = viewerVideo?.currentTime || 0;
+    viewerVideo?.pause();
     viewerStage.classList.add('is-panning');
     viewerStage.setPointerCapture(event.pointerId);
     const move = (moveEvent) => {
-      viewerX = Math.max(-260, Math.min(260, startPan + moveEvent.clientX - startX));
-      viewerStage.style.setProperty('--viewer-x', `${viewerX}px`);
+      if (viewerVideo && Number.isFinite(viewerVideo.duration) && viewerVideo.duration > 0) {
+        const next = startTime + ((moveEvent.clientX - startX) / viewerStage.clientWidth) * viewerVideo.duration * 1.5;
+        viewerVideo.currentTime = ((next % viewerVideo.duration) + viewerVideo.duration) % viewerVideo.duration;
+      }
       roomViewer.classList.add('dragged');
     };
     const stop = () => {
@@ -110,6 +152,7 @@ if (viewerStage) {
       viewerStage.removeEventListener('pointermove', move);
       viewerStage.removeEventListener('pointerup', stop);
       viewerStage.removeEventListener('pointercancel', stop);
+      viewerVideo?.play().catch(() => {});
     };
     viewerStage.addEventListener('pointermove', move);
     viewerStage.addEventListener('pointerup', stop);

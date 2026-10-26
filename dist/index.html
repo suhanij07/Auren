@@ -23,12 +23,12 @@
 
   <main id="top">
     <section class="hero" style="--hero-split:52%">
-      <div class="hero-visual reveal video-hero">
+      <div class="hero-visual reveal video-hero interactive-video" tabindex="0" role="button" aria-label="Drag to explore the room film or click to open full screen">
         <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=90" aria-label="Cinematic view through a contemporary living room">
           <source src="https://videos.pexels.com/video-files/34955049/14806900_3840_2160_50fps.mp4" type="video/mp4" />
         </video>
         <div class="image-label"><span>Residence 01</span><span>Bengaluru · 2026</span></div>
-        <span class="video-label"><i></i> Interior film · 00:10</span>
+        <span class="video-label"><i></i> Drag to look · click for full screen</span>
       </div>
       <button class="hero-splitter" type="button" aria-label="Resize hero image and text panels"><span>↔</span></button>
       <div class="hero-copy reveal">
@@ -132,7 +132,7 @@
     <div class="social-cta-row"><p>Elsewhere</p><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <span>↗</span></a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer">Pinterest <span>↗</span></a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
     <div class="footer-bottom"><a class="brand" href="#top">Auren<span>✦</span></a><p>Architecture & interiors<br>India · projects worldwide</p><a class="footer-email" href="mailto:hello@aurenatelier.com">hello@aurenatelier.com ↗</a><small>© 2026 Auren Atelier</small></div>
   </footer>
-  <div class="room-viewer" id="room-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Immersive interior room view"><div class="viewer-bar"><span>Auren / Immersive room</span><p>Drag left or right to explore</p><button class="viewer-close" type="button" aria-label="Close immersive view">Close ×</button></div><div class="viewer-stage" tabindex="0"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2600&q=94" alt="Wide interior view to explore by dragging" draggable="false" /><div class="viewer-cursor">Drag<br>to look</div></div></div>
+  <div class="room-viewer" id="room-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Immersive interior room view"><div class="viewer-bar"><span>Auren / Immersive room</span><p>Drag left or right to explore</p><button class="viewer-close" type="button" aria-label="Close immersive view">Close ×</button></div><div class="viewer-stage" tabindex="0"><video muted loop playsinline poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=90" aria-label="Full-screen interior film"><source src="https://videos.pexels.com/video-files/34955049/14806900_3840_2160_50fps.mp4" type="video/mp4" /></video><div class="viewer-cursor">Drag<br>to look</div></div></div>
   <script src="script.js"></script>
 </body>
 </html>
