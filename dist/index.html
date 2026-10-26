@@ -22,18 +22,20 @@
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="hero-visual reveal">
-        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=90" alt="Sculptural contemporary living room in warm neutral tones" />
+    <section class="hero" style="--hero-split:52%">
+      <div class="hero-visual reveal pan-surface" data-pan>
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2200&q=92" alt="Sculptural contemporary living room in warm neutral tones" draggable="false" />
         <div class="image-label"><span>Residence 01</span><span>Bengaluru · 2026</span></div>
-        <a class="orbit-link" href="#work" aria-label="Explore our projects"><span>View<br>projects</span></a>
+        <button class="orbit-link viewer-launch" type="button" aria-label="Open immersive room view"><span>Explore<br>360° view</span></button>
+        <span class="pan-hint">Click + drag to look around</span>
       </div>
+      <button class="hero-splitter" type="button" aria-label="Resize hero image and text panels"><span>↔</span></button>
       <div class="hero-copy reveal">
         <p class="eyebrow">Architecture / interiors / objects</p>
         <h1>Quietly bold<br><em>spaces for living.</em></h1>
         <div class="hero-bottom">
           <p>We shape considered homes and intimate commercial spaces through honest materials, warm light and enduring detail.</p>
-          <span class="scroll-cue">Scroll to explore <b>↓</b></span>
+          <button class="room-view-cta viewer-launch" type="button">Enter immersive room <b>↗</b></button>
         </div>
       </div>
     </section>
@@ -48,19 +50,17 @@
           <p>Every project begins with observation: how daylight moves, where conversation happens, which materials improve with touch and time. The result is calm, characterful and distinctly yours.</p>
           <a class="text-link" href="#process">See our process <span>↗</span></a>
         </div>
-        <div class="material-card reveal"><span>Material study no. 04</span><div class="swatches"><i></i><i></i><i></i></div><p>Travertine, aged oak, brushed brass</p></div>
+        <div class="material-card reveal"><div class="material-top"><span>Material study · 04</span><b>Warm / grounded</b></div><div class="material-visual"><img src="https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&w=800&q=88" alt="Travertine and natural material detail" /><div class="swatches"><i></i><i></i><i></i></div></div><div class="material-details"><h3>A palette that gets better with time.</h3><p><span>01</span> Honed travertine</p><p><span>02</span> Smoked oak</p><p><span>03</span> Brushed brass</p></div></div>
       </div>
     </section>
 
     <section class="projects" id="work">
       <div class="section-heading"><div class="section-index">02 / Selected work</div><h2>Spaces that stay<br><em>with you.</em></h2></div>
-      <article class="project project-wide reveal">
-        <a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1800&q=90" alt="Minimal residence with warm timber and garden view" /><span class="project-arrow">↗</span></a>
-        <div class="project-meta"><h3>Casa Serein</h3><p>Residential interior · Pune</p><span>01</span></div>
-      </article>
-      <div class="project-pair">
+      <div class="project-grid-four">
+        <article class="project reveal"><a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=90" alt="Minimal residence with warm timber and garden view" /><span class="project-arrow">↗</span></a><div class="project-meta"><h3>Casa Serein</h3><p>Residential interior · Pune</p><span>01</span></div></article>
         <article class="project reveal"><a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=90" alt="Sophisticated kitchen in soft olive and timber" /><span class="project-arrow">↗</span></a><div class="project-meta"><h3>Olive House</h3><p>Villa renovation · Goa</p><span>02</span></div></article>
-        <article class="project project-offset reveal"><a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=90" alt="Contemporary living room with art and sculptural furniture" /><span class="project-arrow">↗</span></a><div class="project-meta"><h3>Collectors' Room</h3><p>Apartment · Mumbai</p><span>03</span></div></article>
+        <article class="project reveal"><a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=90" alt="Contemporary living room with art and sculptural furniture" /><span class="project-arrow">↗</span></a><div class="project-meta"><h3>Collectors’ Room</h3><p>Apartment · Mumbai</p><span>03</span></div></article>
+        <article class="project reveal"><a class="project-image" href="#contact"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=90" alt="Modern courtyard house with warm lighting" /><span class="project-arrow">↗</span></a><div class="project-meta"><h3>Courtyard House</h3><p>New residence · Alibaug</p><span>04</span></div></article>
       </div>
     </section>
 
@@ -119,9 +119,14 @@
   </main>
 
   <footer id="contact">
-    <div class="footer-top"><p>Have a space in mind?</p><h2>Let’s make it<br><em>remarkable.</em></h2><a href="mailto:hello@aurenatelier.com">hello@aurenatelier.com <span>↗</span></a></div>
-    <div class="footer-bottom"><a class="brand" href="#top">Auren<span>✦</span></a><p>Architecture & interiors<br>India · projects worldwide</p><div><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">LinkedIn</a></div><small>© 2026 Auren Atelier</small></div>
+    <div class="contact-intro"><p class="eyebrow">06 / Start a project</p><h2>Tell us about<br><em>your space.</em></h2><p>Share a few details and we’ll open a structured email enquiry for you—ready to review before sending.</p></div>
+    <form class="enquiry-form" id="enquiry-form">
+      <label><span>Your name</span><input type="text" name="name" placeholder="Name" required /></label><label><span>Email address</span><input type="email" name="email" placeholder="you@email.com" required /></label><label><span>Project type</span><select name="type" required><option value="">Select one</option><option>Residential interior</option><option>Workplace</option><option>Hospitality</option><option>Design direction</option></select></label><label><span>Project location</span><input type="text" name="location" placeholder="City / country" /></label><label class="message-field"><span>Tell us a little about the project</span><textarea name="message" rows="4" placeholder="Scope, timeline, size, or anything useful…" required></textarea></label><button class="form-submit" type="submit"><span>Prepare enquiry</span><b>↗</b></button><small>Your details stay on this device until you choose to send the email.</small>
+    </form>
+    <div class="social-cta-row"><p>Elsewhere</p><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <span>↗</span></a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer">Pinterest <span>↗</span></a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    <div class="footer-bottom"><a class="brand" href="#top">Auren<span>✦</span></a><p>Architecture & interiors<br>India · projects worldwide</p><a class="footer-email" href="mailto:hello@aurenatelier.com">hello@aurenatelier.com ↗</a><small>© 2026 Auren Atelier</small></div>
   </footer>
+  <div class="room-viewer" id="room-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Immersive interior room view"><div class="viewer-bar"><span>Auren / Immersive room</span><p>Drag left or right to explore</p><button class="viewer-close" type="button" aria-label="Close immersive view">Close ×</button></div><div class="viewer-stage" tabindex="0"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2600&q=94" alt="Wide interior view to explore by dragging" draggable="false" /><div class="viewer-cursor">Drag<br>to look</div></div></div>
   <script src="script.js"></script>
 </body>
 </html>

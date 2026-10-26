@@ -29,3 +29,98 @@ document.querySelectorAll('.compare').forEach((compare) => {
   range.addEventListener('input', update);
   update();
 });
+
+const hero = document.querySelector('.hero');
+const splitter = document.querySelector('.hero-splitter');
+if (hero && splitter) {
+  splitter.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    splitter.setPointerCapture(event.pointerId);
+    const move = (moveEvent) => {
+      const bounds = hero.getBoundingClientRect();
+      const percent = Math.max(35, Math.min(66, ((moveEvent.clientX - bounds.left) / bounds.width) * 100));
+      hero.style.setProperty('--hero-split', `${percent}%`);
+    };
+    const stop = () => {
+      splitter.removeEventListener('pointermove', move);
+      splitter.removeEventListener('pointerup', stop);
+      splitter.removeEventListener('pointercancel', stop);
+    };
+    splitter.addEventListener('pointermove', move);
+    splitter.addEventListener('pointerup', stop);
+    splitter.addEventListener('pointercancel', stop);
+  });
+}
+
+const heroPan = document.querySelector('[data-pan]');
+if (heroPan) {
+  let panX = 0;
+  heroPan.addEventListener('pointerdown', (event) => {
+    if (event.target.closest('button')) return;
+    const startX = event.clientX;
+    const startPan = panX;
+    heroPan.classList.add('is-panning');
+    heroPan.setPointerCapture(event.pointerId);
+    const move = (moveEvent) => {
+      panX = Math.max(-90, Math.min(20, startPan + moveEvent.clientX - startX));
+      heroPan.style.setProperty('--pan-x', `${panX}px`);
+    };
+    const stop = () => {
+      heroPan.classList.remove('is-panning');
+      heroPan.removeEventListener('pointermove', move);
+      heroPan.removeEventListener('pointerup', stop);
+      heroPan.removeEventListener('pointercancel', stop);
+    };
+    heroPan.addEventListener('pointermove', move);
+    heroPan.addEventListener('pointerup', stop);
+    heroPan.addEventListener('pointercancel', stop);
+  });
+}
+
+const roomViewer = document.querySelector('#room-viewer');
+const viewerStage = roomViewer?.querySelector('.viewer-stage');
+const closeViewer = () => {
+  roomViewer?.classList.remove('open');
+  roomViewer?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('viewer-open');
+};
+document.querySelectorAll('.viewer-launch').forEach((button) => button.addEventListener('click', () => {
+  roomViewer.classList.add('open');
+  roomViewer.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('viewer-open');
+  viewerStage.focus();
+}));
+roomViewer?.querySelector('.viewer-close')?.addEventListener('click', closeViewer);
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeViewer(); });
+
+if (viewerStage) {
+  let viewerX = 0;
+  viewerStage.addEventListener('pointerdown', (event) => {
+    const startX = event.clientX;
+    const startPan = viewerX;
+    viewerStage.classList.add('is-panning');
+    viewerStage.setPointerCapture(event.pointerId);
+    const move = (moveEvent) => {
+      viewerX = Math.max(-260, Math.min(260, startPan + moveEvent.clientX - startX));
+      viewerStage.style.setProperty('--viewer-x', `${viewerX}px`);
+      roomViewer.classList.add('dragged');
+    };
+    const stop = () => {
+      viewerStage.classList.remove('is-panning');
+      viewerStage.removeEventListener('pointermove', move);
+      viewerStage.removeEventListener('pointerup', stop);
+      viewerStage.removeEventListener('pointercancel', stop);
+    };
+    viewerStage.addEventListener('pointermove', move);
+    viewerStage.addEventListener('pointerup', stop);
+    viewerStage.addEventListener('pointercancel', stop);
+  });
+}
+
+document.querySelector('#enquiry-form')?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const subject = `Project enquiry — ${data.get('type')}`;
+  const body = [`Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Project type: ${data.get('type')}`, `Location: ${data.get('location') || 'Not specified'}`, '', 'Project notes:', data.get('message')].join('\n');
+  window.location.href = `mailto:hello@aurenatelier.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
